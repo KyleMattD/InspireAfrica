@@ -5,11 +5,10 @@
     </div> 
     
     <form [formGroup]="personalForm" (ngSubmit)="onSubmit()"  fxLayout="row wrap" class="user-form p-1" >
-
         <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" class="p-1" fxLayoutGap>
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput autocomplete="off" placeholder="First Name" formControlName="firstname" type="text" [(ngModel)]="UserEdit.Farm_User_Name">
+                <input matInput autocomplete="off" placeholder="First Name" formControlName="firstname" type="text" [(ngModel)]="UserEdit.Learner_Name">
                 <mat-error *ngIf="personalForm.controls.firstname.errors?.required">First Name is required</mat-error>
                 <mat-error *ngIf="personalForm.controls.firstname.errors?.maxlength">Maximum length of characters is 30</mat-error>                   
             </mat-form-field> 
@@ -18,34 +17,31 @@
         <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" class="p-1"fxLayoutGap>
             <mat-form-field appearance="outline">
                 <mat-label>Surname</mat-label>
-                <input matInput autocomplete="off" placeholder="Last Name" formControlName="lastname" type="text" [(ngModel)]="UserEdit.Farm_User_Surname">
+                <input matInput autocomplete="off" placeholder="Last Name" formControlName="lastname" type="text" [(ngModel)]="UserEdit.Learner_Surname">
                 <mat-error *ngIf="personalForm.controls.lastname.errors?.required">Last Name is required</mat-error>
                 <mat-error *ngIf="personalForm.controls.lastname.errors?.maxlength">Maximum length of characters is 30</mat-error>                  
             </mat-form-field> 
         </div>
   
-        
         <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" class="p-1" fxLayoutGap>
                 <mat-form-field appearance="outline">
-                    <mat-label>ID Number</mat-label>
-                    <input matInput autocomplete="off" placeholder="ID Number" formControlName="id" type="text" [(ngModel)]="UserEdit.Farm_User_ID">
-                    <mat-error *ngIf="personalForm.controls.id.errors?.required">ID Number is required</mat-error> 
-                    <mat-error *ngIf="personalForm.controls.id.hasError('minlength')">ID Number invalid</mat-error>
-                              <mat-error *ngIf="personalForm.controls.id.hasError('maxlength')">ID Number invalid</mat-error>                 
+                    <mat-label>Grade</mat-label>
+                    <input matInput autocomplete="off" placeholder="Grade" formControlName="id" type="text" [(ngModel)]="UserEdit.Learner_Grade">
+                    <mat-error *ngIf="personalForm.controls.Grade.errors?.required">Grade is required</mat-error> 
+                    <mat-error *ngIf="personalForm.controls.Grade.hasError('minlength')">Grade invalid</mat-error>
+                    <mat-error *ngIf="personalForm.controls.id.hasError('maxlength')">Grade invalid</mat-error>                 
                 </mat-form-field> 
             </div>
   
         <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" class="p-1" fxLayoutGap>
                 <mat-form-field appearance="outline">
                     <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker] ="picker"autocomplete="off" placeholder="MM/DD/YYYY" formControlName="dateofbirth" type="text" [(ngModel)]="UserEdit.Farm_User_DOB">
+                    <input matInput [matDatepicker] ="picker"autocomplete="off" placeholder="MM/DD/YYYY" formControlName="dateofbirth" type="text" [(ngModel)]="UserEdit.Learner_DOB">
                     <mat-datepicker-toggle matSuffix [for]="picker">
-                        
                     </mat-datepicker-toggle>  
                     <mat-datepicker #picker>
                             <mat-error *ngIf="personalForm.controls.dateofbirth.errors?.required">Date of Birth is required</mat-error>   
                     </mat-datepicker>                  
-                                   
                 </mat-form-field> 
             </div>
   
@@ -58,23 +54,11 @@
             </mat-form-field> 
         </div>
   
-        <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="50" class="p-1" fxLayoutGap >
-            <mat-form-field appearance="outline">
-                <mat-label>Phone Number</mat-label>
-                <input matInput autocomplete="off" placeholder="Phone Number" formControlName="number" type="text" [(ngModel)]="UserEdit.Farm_User_Phone_Number"> 
-                <mat-error *ngIf="personalForm.controls.number.errors?.required">Phone Number is required</mat-error> 
-                <mat-error *ngIf="personalForm.controls.number.errors?.minlength">Phone Number is invalid</mat-error> 
-                <mat-error *ngIf="personalForm.controls.number.errors?.maxlength">Phone Number is invalid</mat-error>                 
-            </mat-form-field> 
-        </div>
-  
-        
-  
         <div fxFlex="100" class="p-1">
             <mat-form-field appearance="outline">
-                <mat-label>Home Address</mat-label> 
-                <textarea matInput placeholder="Enter address" formControlName="address" [(ngModel)]="UserEdit.Farm_User_Address">{{UserEdit.Farm_User_Address}}</textarea> 
-                <mat-error *ngIf="personalForm.controls.address.errors?.required">Address is required</mat-error> 
+                <mat-label>Current School</mat-label> 
+                <textarea matInput placeholder="Current School" formControlName="address" [(ngModel)]="UserEdit.Learner_School">{{UserEdit.Learner_School}}</textarea> 
+                <mat-error *ngIf="personalForm.controls.address.errors?.required">School is required</mat-error> 
                 <mat-error *ngIf="personalForm.controls.address.errors?.maxlength">Maximum length of characters is 76</mat-error>  
             </mat-form-field>
         </div>
@@ -82,8 +66,6 @@
         <div fxFlex="100" class="p-1 text-center">
             <button mat-raised-button color="primary" class="uppercase mx-1" type="submit" >Update</button>             
         </div>
-  
     </form> 
-   
   </mat-card>
-  </div>
+</div>

@@ -5,5 +5,5 @@ export class Learner{
     public Learner_DOB: Date;
     public Learner_School: string; 
     public Learner_Grade: string;
-    public User_Docx: string;
+    public Learner_Docs: string;
 }

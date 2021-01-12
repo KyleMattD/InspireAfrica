@@ -1,0 +1,75 @@
+
+    <div fxLayout="row"  fxLayoutAlign="center center" class="h-100"  style="overflow: auto">      
+  
+         <form [formGroup]="form" (ngSubmit)="onSubmit()" fxFlex="100"  fxFlex.gt-sm="40"  >
+  
+              <mat-card class="p-0 mat-elevation-z24 box register">
+                  <div fxLayout="column" fxLayoutAlign="center center" class="bg-primary box-header">
+                      <button mat-fab color="accent" class="mat-elevation-z12" (click)="onSubmit();">
+                          <mat-icon>person_add</mat-icon>
+                      </button>
+                      <a mat-button routerLink="/login">Already have an account? Sign in!</a>
+                      
+                  </div>
+                  <mat-card-content fxLayout="column"  fxLayoutAlign="end center"  class="box-content">
+                  
+                      <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
+                        <h1>Register Farmer</h1>  
+                        
+                        <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px; position: relative;float: right;overflow: hidden;">
+                        <div class="form-group">
+                          <label for="file" style="text-align:center;display: block;">Profile Photo</label>
+                          <input 
+                              formControlName="file"
+                              id="file" 
+                              type="file" 
+                              class="form-control"
+                              (change)="onSelectedFile($event)">
+                          </div>
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Full Name" (keypress)="omit_special_char($event)" formControlName="name" [(ngModel)] = "SubmitData.Name" required>
+                            <mat-error *ngIf="form.controls.name.errors?.required">Full Name is required</mat-error>
+                            <mat-error *ngIf="form.controls.name.hasError('minlength')">Full Name isn't long enough, minimum of 3 characters</mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="w-100">
+                          <input matInput placeholder="Surname" formControlName="surname" (keypress)="omit_special_char($event)"  [(ngModel)] = "SubmitData.Surname" required>
+                            <mat-error *ngIf="form.controls.surname.errors?.required">Surname is required</mat-error>
+                            <mat-error *ngIf="form.controls.surname.hasError('minlength')">Surname isn't long enough, minimum of 3 characters</mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="ID Number" formControlName="id" (keypress)="omit_special_char_Let($event)" maxlength="13"  [(ngModel)] = "SubmitData.IDNum" (change) = "checkID()" required>
+                              <mat-error *ngIf="form.controls.id.errors?.required">ID Number is required</mat-error>
+                              <mat-error *ngIf="form.controls.id.hasError('minlength')">ID Number invalid</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Street Address" formControlName="address" (keypress)="omit_special_char($event)"  [(ngModel)] = "SubmitData.Adress" required>
+                                  <mat-error *ngIf="form.controls.address.errors?.required">Address is required</mat-error>
+                                  <mat-error *ngIf="form.controls.address.hasError('minlength')">Address invalid</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Phone Number" maxlength="10" formControlName="number" (keypress)="omit_special_char($event)"  [(ngModel)] = "SubmitData.Phone" required>
+                                  <mat-error *ngIf="form.controls.number.errors?.required">Phone Number is required</mat-error>
+                                  <mat-error *ngIf="form.controls.number.hasError('minlength')">Phone Number invalid</mat-error>
+                                </mat-form-field>
+                          <mat-form-field class="w-100">
+                              <input matInput placeholder="Email" type="email" formControlName="email"  [(ngModel)] = "SubmitData.Email" (blur) = "CheckEmail()" required>
+                              <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
+                              <mat-error *ngIf="form.controls.email.hasError('invalidEmail')">Invalid email address</mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="w-100">
+                              <input matInput placeholder="Password" formControlName="password" type="password" minlength="6"  [(ngModel)] = "SubmitData.Password" required>
+                              <mat-error *ngIf="form.controls.password.errors?.required">Password is required</mat-error>
+                              <mat-error *ngIf="form.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
+                          </mat-form-field> 
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password" required>
+                            <mat-error *ngIf="form.controls.confirmPassword.errors?.required">Confirm Password is required</mat-error>
+                            <mat-error *ngIf="form.controls.confirmPassword.hasError('mismatchedPasswords')">Passwords do not match</mat-error>
+                          </mat-form-field>
+                      </mat-card>
+                      <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" type="submit" *ngIf = "submit1 && submit2">SIGN UP</button>
+                  </mat-card-content>
+              </mat-card>
+         </form>   
+    </div>
+

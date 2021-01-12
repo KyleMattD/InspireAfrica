@@ -14,18 +14,7 @@
                   <mat-card-content fxLayout="column"  fxLayoutAlign="end center"  class="box-content">
                   
                       <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
-                        <h1>Register Farmer</h1>  
-                        
-                        <img [src]="imageSrc" *ngIf="imageSrc" style="height: 100px; width:100px; position: relative;float: right;overflow: hidden;">
-                        <div class="form-group">
-                          <label for="file" style="text-align:center;display: block;">Profile Photo</label>
-                          <input 
-                              formControlName="file"
-                              id="file" 
-                              type="file" 
-                              class="form-control"
-                              (change)="onSelectedFile($event)">
-                          </div>
+                        <h1>Register Learner</h1> 
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Full Name" (keypress)="omit_special_char($event)" formControlName="name" [(ngModel)] = "SubmitData.Name" required>
                             <mat-error *ngIf="form.controls.name.errors?.required">Full Name is required</mat-error>
@@ -37,14 +26,14 @@
                             <mat-error *ngIf="form.controls.surname.hasError('minlength')">Surname isn't long enough, minimum of 3 characters</mat-error>
                           </mat-form-field>
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="ID Number" formControlName="id" (keypress)="omit_special_char_Let($event)" maxlength="13"  [(ngModel)] = "SubmitData.IDNum" (change) = "checkID()" required>
-                              <mat-error *ngIf="form.controls.id.errors?.required">ID Number is required</mat-error>
-                              <mat-error *ngIf="form.controls.id.hasError('minlength')">ID Number invalid</mat-error>
+                            <input matInput placeholder="Current Grade" formControlName="grade" (keypress)="omit_special_char_Let($event)" type="number" [(ngModel)] = "SubmitData.Grade" (change) = "checkID()" required>
+                              <mat-error *ngIf="form.controls.grade.errors?.required">Grade is required</mat-error>
+                              <mat-error *ngIf="form.controls.grade.hasError('minlength')">Grade invalid</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Street Address" formControlName="address" (keypress)="omit_special_char($event)"  [(ngModel)] = "SubmitData.Adress" required>
-                                  <mat-error *ngIf="form.controls.address.errors?.required">Address is required</mat-error>
-                                  <mat-error *ngIf="form.controls.address.hasError('minlength')">Address invalid</mat-error>
+                                <input matInput placeholder="Current School" formControlName="school" (keypress)="omit_special_char($event)" [(ngModel)] = "SubmitData.School" required>
+                                  <mat-error *ngIf="form.controls.school.errors?.required">School is required</mat-error>
+                                  <mat-error *ngIf="form.controls.school.hasError('minlength')">School invalid</mat-error>
                             </mat-form-field>
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Phone Number" maxlength="10" formControlName="number" (keypress)="omit_special_char($event)"  [(ngModel)] = "SubmitData.Phone" required>
@@ -65,6 +54,19 @@
                             <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password" required>
                             <mat-error *ngIf="form.controls.confirmPassword.errors?.required">Confirm Password is required</mat-error>
                             <mat-error *ngIf="form.controls.confirmPassword.hasError('mismatchedPasswords')">Passwords do not match</mat-error>
+                          </mat-form-field>
+                          <a href="https://drive.google.com/file/d/1kZx3uLbfGoA-wdPWA3KBtWG0tXR2tYLu/view?usp=sharing">Download Parent/Guardian Form</a>
+                          <mat-form-field>
+                              <label>Upload Parent/Guardian Document</label>
+                              <div class="form-group">
+                                <label for="file" style="text-align:center;display: block;">Profile Photo</label>
+                                <input 
+                                    formControlName="file"
+                                    id="file" 
+                                    type="file" 
+                                    class="form-control"
+                                    (change)="onSelectedFile($event)">
+                                </div>
                           </mat-form-field>
                       </mat-card>
                       <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" type="submit" *ngIf = "submit1 && submit2">SIGN UP</button>

@@ -8,10 +8,11 @@ import * as CryptoJS from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
 import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import * as jwt_decode from "jwt-decode";
+import {User} from '../Models/Register'
 
-export class User{
-  User_Email: string;
-  User_Password: string;
+export class user{
+  User_Email!: string;
+  User_Password!: string;
 }
 
 @Component({
@@ -32,8 +33,8 @@ export class LoginComponent {
 
   username: string = "";
   password: string = ""; 
-  newPass: string;
-  UserSubmit =  new User;
+  newPass!: string;
+  UserSubmit =  new user;
 
   public onSubmit(values:Object):void {
     if (this.form.valid) {
@@ -46,22 +47,18 @@ export class LoginComponent {
    this.newPass = this.password;  //<<<< front end encryption(first layer)
    this.UserSubmit.User_Email = this.username;
    this.UserSubmit.User_Password = this.newPass;  //<<<< set new password to post
-    this.httpserv.post<User>("http://localhost:4200/api/User/Login",this.UserSubmit).subscribe(   // <<< Post to LOGIN API endpoint
+    this.httpserv.post<user>("http://localhost:4200/api/User/Login",this.UserSubmit).subscribe(   // <<< Post to LOGIN API endpoint
       (data:any) => {
         localStorage.setItem("jwtToken", data.Token);   // <<< fetch and save JWT token
 
         var decoded = jwt_decode(data.Token);
         var name = <string>decoded.unique_name;
         
-        localStorage.setItem("currentUser",name);  //=========================REMOVE ON LIVE
-
-
-        localStorage.setItem("loggedIn", "Yes");       // <<< set global logged in attribute
-        //=======JWT DECODE FOR USER ID HERE localstorage = currentUser======
-        
+        localStorage.setItem("currentUser",name); 
+        localStorage.setItem("loggedIn", "Yes");      
         this.router.navigateByUrl("/onetime");
       },
-      error =>{ // <<<<<< Login failed
+      error =>{ 
         alert("Incorrect Username or Password");
       }
       

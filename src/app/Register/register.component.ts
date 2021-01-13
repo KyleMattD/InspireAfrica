@@ -21,12 +21,14 @@ export class RegisterComponent {
   public form:FormGroup;
   public settings: Settings;
 
-  @ViewChild('resumeInput', {  
-    static: true  
-}) resumeInput: { nativeElement: { files: (string | Blob)[]; }; };  
-@ViewChild('logoInput', {  
-    static: true  
-}) logoInput: { nativeElement: { files: (string | Blob)[]; }; }; 
+  @ViewChild('resumeInput', {
+        static: true
+    })
+    resumeInput!: { nativeElement: { files: (string | Blob)[]; }; };  
+    @ViewChild('logoInput', {
+        static: true
+    })
+    logoInput!: { nativeElement: { files: (string | Blob)[]; }; }; 
 
   DocSrc!: string;
   basePath = '/docs';                       
@@ -52,7 +54,7 @@ export class RegisterComponent {
  SubmitData = new Register(); 
  PostData = new Register();   
 
-file: any; 
+file!: any; 
 progressValue!: Observable<number>; 
 
   public async onSubmit() {

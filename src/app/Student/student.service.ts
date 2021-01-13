@@ -7,37 +7,40 @@ import { Observable } from 'rxjs';
 import {throwError} from 'rxjs';
 import {catchError,tap} from 'rxjs/operators';
 import { Learner } from '../Models/Learner'
+import { Subjects } from '../Models/Subjects';
 
 @Injectable()
 export class StudentService {
-    public url = "api/users";
     constructor(public http:HttpClient) { }
-    apiURL:string="http://localhost:4200/api/"
-
-    getStaff(): any{
-        const ops = {     // <<<<<< Initialize header with token
-            headers: new HttpHeaders({
-              
-              'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
-            })
-          };
-        return this.http.get(this.apiURL+"Student/" + localStorage.getItem("currentCourse"),ops);
-    }
+    public url="http://localhost:4200/api/"
     
     
-    getUsers(): Observable<Learner[]> {
-        return this.http.get<Learner[]>(this.url);
+    getLearners(): Observable<Learner[]> {
+        return this.http.get<Learner[]>(this.url + "Learner");
     }
 
-    addUser(user:Learner){	    
-        return this.http.post(this.url, user);
+    getSubjects(): Observable<Learner[]> {
+        return this.http.get<Learner[]>(this.url + "Subjects");
     }
 
-    updateUser(user:Learner){
-        return this.http.put(this.url, user);
+    addLearners(user:Learner){	    
+        return this.http.post(this.url + "Learner/add", user);
     }
 
-    deleteUser(id: number) {
+    addSubjects(Subjects:Subjects){	    
+        return this.http.post(this.url, Subjects);
+    }
+
+    updateLearners(user:Learner){
+        return this.http.put(this.url + "Learner/Edit", user);
+    }
+
+    updateSubject(Subjects:Subjects){
+        return this.http.put(this.url + "Subjects/Edit", Subjects);
+    }
+
+    deleteLearners(id: number) {
         return this.http.delete(this.url + "/" + id);
     } 
 } 
+

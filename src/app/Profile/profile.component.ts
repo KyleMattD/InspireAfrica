@@ -11,9 +11,10 @@ import {Observable} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormBuilder,Validators,FormControl } from '@angular/forms';
 import { formatDate } from '@angular/common';
-import { Register,  } from '../Models/Register';
-import {StudentService} from '../Student/Student.service'
+import { Register, User } from '../Models/Register';
+import {StudentService} from '../Student/student.service';
 import { AngularFireStorage, AngularFireUploadTask  } from '@angular/fire/storage';
+import {Learner} from '../Models/Learner'
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,7 +22,7 @@ import { AngularFireStorage, AngularFireUploadTask  } from '@angular/fire/storag
 })
 export class ProfileComponent implements OnInit {
 
-  public personalForm:FormGroup;
+  public personalForm!:FormGroup;
  
  
   constructor(private formBuilder: FormBuilder,
@@ -30,21 +31,17 @@ export class ProfileComponent implements OnInit {
     private http:HttpClient, 
     private fireStorage: AngularFireStorage) { }
 
-  public settings: Settings;  
+  public settings!: Settings;  
   file: any;
-  progressValue: Observable<number>;
-  AdminPriv:string;
+  progressValue!: Observable<number>;
+  AdminPriv!: string;
   ngOnInit() {
     this.personalForm = this.formBuilder.group({
       'firstname': [null, Validators.compose([Validators.required, Validators.maxLength(30)])],
       'lastname': [null, Validators.compose([Validators.required, Validators.maxLength(30)])],
-      'id': [null, Validators.compose([Validators.required, Validators.minLength(13),Validators.maxLength(13)])],
-      'number': [null, Validators.compose([Validators.required, Validators.minLength(10),Validators.maxLength(10)])],
-      //'city': [null, Validators.compose([Validators.required, Validators.maxLength(20)])],
-      'address': [null, Validators.compose([Validators.required, Validators.maxLength(100)])],
-      //'postalCode': [null, Validators.compose([Validators.required, Validators.minLength(4),Validators.maxLength(4)])],
+      'grade': [null, Validators.compose([Validators.required, Validators.minLength(10),Validators.maxLength(10)])],
+      'school': [null, Validators.compose([Validators.required, Validators.maxLength(100)])],
       'email': [null, Validators.compose([Validators.required, emailValidator])],
-      'dateofbirth':[null, Validators.compose([Validators.required])]
     }
   )
 
@@ -57,13 +54,7 @@ export class ProfileComponent implements OnInit {
 }
   }
 
-  // public onSubmit(values:Object):void {
-  //     if (this.personalForm.valid) {
-  //         // this.router.navigate(['pages/dashboard']);
-  //     }
-  // }
-  
-  UserEdit:Student=new Student;
+  UserEdit:Learner=new Learner;
   ops:any;
 
   data2:any;
@@ -77,7 +68,7 @@ export class ProfileComponent implements OnInit {
       })
     };
     this.StudentService.getStudentDetails().subscribe( // <<<< get specific skill
-      success => {
+      (      success: any) => {
         this.data2 = success;
         console.log(this.data2);
         this.UserEdit=this.data2;
@@ -89,7 +80,7 @@ export class ProfileComponent implements OnInit {
   PutStudent(){
     
     this.StudentService.PutStudent(this.UserEdit).subscribe( //<<<<<<<< update skill
-      (response) =>  {
+      (response: any) =>  {
           console.log(response);
           window.location.reload();
       }

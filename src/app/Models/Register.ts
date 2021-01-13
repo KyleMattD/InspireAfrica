@@ -7,6 +7,7 @@ export class Register{
     public School: string;
     public Address : string;
     public DOB: Date;
+    public DocSrc: string;
 }
 
 export class User{

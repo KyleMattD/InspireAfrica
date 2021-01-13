@@ -1,3 +1,191 @@
-<mat-form-field>
+<h1 style="text-align: center;">Subjects</h1>
+<button mat-raised-button color="primary" *ngIf = "showtable" (click) = "addSubject()" class="buttons"><mat-icon>add</mat-icon>Add Subject</button>&nbsp;&nbsp;
+<button mat-raised-button color="primary" *ngIf = "showtable" (click) = "removeSubject()" class="buttons"><mat-icon> sentiment_satisfied_alt</mat-icon> Deregister subject</button>
+
+<div fxLayout="column">
+    <div class="flex-p" *ngIf = "showtable"> 
+        <div fxLayout="column" class="mat-elevation-z8" >           
+            <mat-form-field class="p-1">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type to filter all columns">
+            </mat-form-field> 
+        </div>
+        <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">       
+            <ng-container matColumnDef="Subject ID">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Subject_ID}} </mat-cell>
+            </ng-container>         
+            <ng-container matColumnDef="Subject Name">
+                <mat-header-cell *matHeaderCellDef> Subject Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Subject_Name}} </mat-cell>
+            </ng-container>    
+            <ng-container matColumnDef="Centre Name">
+                <mat-header-cell *matHeaderCellDef> Centre Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Centre_Name}} </mat-cell>
+            </ng-container>        
+            <ng-container matColumnDef="Subject Mark">
+                <mat-header-cell *matHeaderCellDef> Marks </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Learner_Grade}} </mat-cell>
+            </ng-container>             
+            <ng-container matColumnDef="Actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+                    <button mat-fab class="m-1" style="color: green; background-color:rgb(51, 49, 49)" (click) ='getLearnerInfo(element.Subject_ID)'>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-fab class="m-1" style="color: red; background-color: rgb(51, 49, 49);" (click)="deregisterSubject(element.Subject_ID)">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+               </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>  
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10]"></mat-paginator>      
+    </div>
+</div>
+<br>
+
+<ng-container *ngIf="show">
+    <mat-card class="p-0" >  
+        <div class="bg-primary text-center py-1">       
+            <h1>Edit Subject:</h1> 
+        </div> 
+    <form ng-show="show" name="OwnerSub" #userForm="ngForm" ngNativeValidate  [formGroup] ="form" fxLayout="row wrap">
+        <h3  fxFlex.gt-sm="100" fxLayoutAlign="center"><u>Please provide the following details:</u></h3>
+
+        <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-1"fxLayoutGap>
+                <mat-form-field appearance="outline">
+                    <mat-label>Subject Name</mat-label>
+                    <mat-select placeholder="Type of Farm" [(ngModel)]="SubjectEdit.Subject_ID" name="Type" formControlName ="Types" [ngModelOptions]="{standalone: true}">
+                        <option value="" disabled selected>Choose</option>
+                        <mat-option *ngFor="let type of Subjects" [value]="type.Subject_ID">
+                            {{type.Subject_Name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+        </div>
+
+        <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-1"fxLayoutGap>
+            <mat-form-field appearance="outline">
+                <mat-label>Centre Name</mat-label>
+                <mat-select placeholder="Type of Farm" [(ngModel)]="SubjectEdit.Centre_ID" name="Type" formControlName ="Types" [ngModelOptions]="{standalone: true}">
+                    <option value="" disabled selected>Choose</option>
+                    <mat-option *ngFor="let type of Centres" [value]="type.Centre_ID">
+                        {{type.Centre_ID}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+            <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1"  fxLayoutGap></div>
+
+            <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1"  fxLayoutGap>
+                <button mat-raised-button color="primary" class="m-1" (click)="ConfirmEditFarm()">Save</button>
+                </div>
+            <div fxLayoutAlign="right" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1" fxLayoutGap>
+        <button mat-raised-button color="primary" class="m-1" (click)="CancelEditFarm()">Back</button>
+       
+    </div>
     
-</mat-form-field>
+      </form>
+     </mat-card>
+    </ng-container>
+
+
+<ng-container *ngIf="showAdd"> 
+    <mat-card class="p-0" >  
+        <div class="bg-primary text-center py-1">       
+            <h1>Add Subject:</h1> 
+        </div> 
+    <form ng-show="show" name="OwnerSub" #userForm="ngForm" ngNativeValidate  [formGroup] ="form" fxLayout="row wrap">
+        <h3  fxFlex.gt-sm="100" fxLayoutAlign="center"><u>Please provide the following details:</u></h3>
+
+        <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-1"fxLayoutGap>
+            <mat-form-field appearance="outline">
+                <mat-label>Subject Name</mat-label>
+                <mat-select placeholder="Type of Farm" [(ngModel)]="SubjectEdit.Subject_ID" name="Type" formControlName ="Types" [ngModelOptions]="{standalone: true}">
+                    <option value="" disabled selected>Choose</option>
+                    <mat-option *ngFor="let type of Subjects" [value]="type.Subject_ID">
+                        {{type.Subject_Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+    </div>
+
+    <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-1"fxLayoutGap>
+        <mat-form-field appearance="outline">
+            <mat-label>Centre Name</mat-label>
+            <mat-select placeholder="Type of Farm" [(ngModel)]="SubjectEdit.Centre_ID" name="Type" formControlName ="Types" [ngModelOptions]="{standalone: true}">
+                <option value="" disabled selected>Choose</option>
+                <mat-option *ngFor="let type of Centres" [value]="type.Centre_ID">
+                    {{type.Centre_ID}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+            <div fxLayoutAlign="right" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1" fxLayoutGap></div>
+            <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1"  fxLayoutGap>
+                <button mat-raised-button color="primary" class="m-1" (click)="ConfirmAddSubject()">Save</button>
+                </div>
+            <div fxLayoutAlign="right" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1" fxLayoutGap>
+        <button mat-raised-button color="primary" class="m-1" (click)="CancelAddSubject()">Back</button>
+        
+    </div>
+    
+      </form>
+     </mat-card>
+    </ng-container>
+
+
+    <ng-container *ngIf="showDelete"> 
+        <mat-card class="p-0" >  
+            <div class="bg-primary text-center py-1">       
+                <h1>Deregister Subject:</h1> 
+            </div> 
+        <form ng-show="show" name="OwnerSub" #userForm="ngForm" ngNativeValidate  [formGroup] ="form" fxLayout="row wrap">
+            <h3  fxFlex.gt-sm="100" fxLayoutAlign="center"><u>Please provide the following details:</u></h3>
+    
+            <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-1"fxLayoutGap>
+                <mat-form-field appearance="outline">
+                    <mat-label>Subject Name</mat-label>
+                    <mat-select placeholder="Type of Farm" [(ngModel)]="SubjectEdit.Subject_ID" name="Type" formControlName ="Types" [ngModelOptions]="{standalone: true}">
+                        <option value="" disabled selected>Choose</option>
+                        <mat-option *ngFor="let type of Subjects" [value]="type.Subject_ID">
+                            {{type.Subject_Name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+        </div>
+    
+        <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-1"fxLayoutGap>
+            <mat-form-field appearance="outline">
+                <mat-label>Centre Name</mat-label>
+                <mat-select placeholder="Type of Farm" [(ngModel)]="SubjectEdit.Centre_ID" name="Type" formControlName ="Types" [ngModelOptions]="{standalone: true}">
+                    <option value="" disabled selected>Choose</option>
+                    <mat-option *ngFor="let type of Centres" [value]="type.Centre_ID">
+                        {{type.Centre_ID}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div  fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="100" fxFlex.sm="50" class="p-1"fxLayoutGap>
+            <mat-form-field appearance="outline">
+                <mat-label>Deregister Reason</mat-label>
+                <input matInput placeholder="ex. Cant afford course" [(ngModel)]="SubjectDelete.Subject_Name" name="Name" require formControlName ="Name" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+        </div>
+                <div fxLayoutAlign="right" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1" fxLayoutGap></div>
+                <div fxLayoutAlign="left" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1"  fxLayoutGap>
+                    <button mat-raised-button color="primary" class="m-1" (click)="ConfirmDeregisterSubject()">Save</button>
+                    </div>
+                <div fxLayoutAlign="right" fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" class="p-1" fxLayoutGap>
+            <button mat-raised-button color="primary" class="m-1" (click)="CancelDeregisterSubject()">Back</button>
+            
+        </div>
+        
+          </form>
+         </mat-card>
+        </ng-container>
+    

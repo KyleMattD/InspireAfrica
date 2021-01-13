@@ -35,11 +35,6 @@
                                   <mat-error *ngIf="form.controls.school.errors?.required">School is required</mat-error>
                                   <mat-error *ngIf="form.controls.school.hasError('minlength')">School invalid</mat-error>
                             </mat-form-field>
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Phone Number" maxlength="10" formControlName="number" (keypress)="omit_special_char($event)"  [(ngModel)] = "SubmitData.Phone" required>
-                                  <mat-error *ngIf="form.controls.number.errors?.required">Phone Number is required</mat-error>
-                                  <mat-error *ngIf="form.controls.number.hasError('minlength')">Phone Number invalid</mat-error>
-                                </mat-form-field>
                           <mat-form-field class="w-100">
                               <input matInput placeholder="Email" type="email" formControlName="email"  [(ngModel)] = "SubmitData.Email" (blur) = "CheckEmail()" required>
                               <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>

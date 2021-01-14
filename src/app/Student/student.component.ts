@@ -46,7 +46,7 @@ export class StudentComponent implements OnInit {
   SubjectEdit: PostSubjects = new PostSubjects;
   AdminPriv!: string;
   showtable: boolean = true;
-  currentUser!: user;
+  currentUser!: user ;
  
 
   constructor(public appSettings:AppSettings, private router: Router,private formbuilder: FormBuilder, public dialog: MatDialog, private http : HttpClient, private StudentService: StudentService) { 
@@ -54,22 +54,21 @@ export class StudentComponent implements OnInit {
     console.log("debug");
     this.form = this.formbuilder.group({
 
-      'Size':['', Validators.compose([Validators.required,Validators.maxLength(30)])],
-      'Address':['', Validators.compose([Validators.required,Validators.maxLength(150)])],
+      'Deregister':['', Validators.compose([Validators.required,Validators.maxLength(30)])],
+      'School':['', Validators.compose([Validators.required,Validators.maxLength(150)])],
       'Name':['', Validators.compose([Validators.required,Validators.maxLength(100)])],
       'Email':['', Validators.compose([Validators.required,Validators.maxLength(150)])],
-      'Number':['', Validators.compose([Validators.required,Validators.maxLength(10)])],
-      Types: new FormControl,
-      Prov: new FormControl
+      'Grade':['', Validators.compose([Validators.required,Validators.maxLength(1)])],
+      Subjects: new FormControl,
     })
   }
 
   ngOnInit(): void {
-   this.currentUser = localStorage.getItem("currentUser");
+   this.currentUser !== null ? localStorage.getItem("currentUser"): new user();
        if(localStorage.getItem("jwtToken") == null){
         this.router.navigateByUrl("login");
     }else{
-      this.AdminPriv = localStorage.getItem("PrivelageLevel");
+      this.AdminPriv !== null ? localStorage.getItem("PrivelageLevel"): new user();
 
      this.getData();
     } 
@@ -147,7 +146,7 @@ export class StudentComponent implements OnInit {
         'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
       })
     };
-    this.StudentService.postFarm(this.SubjectAdd).subscribe( 
+    this.StudentService.addSubjects(this.SubjectAdd).subscribe( 
         (      success: any) =>  {
           console.log(success);
           window.location.reload();

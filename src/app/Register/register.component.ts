@@ -54,13 +54,13 @@ export class RegisterComponent {
  SubmitData = new Register(); 
  PostData = new Register();   
 
-file!: any; 
+file: any | ""; 
 progressValue!: Observable<number>; 
 
   public async onSubmit() {
 
     if (this.file) {
-       const filePath = `${this.basePath}/${this.SubmitData.Email}`;  
+       const filePath = `${this.basePath}/${this.SubmitData.User_Email}`;  
        this.data =  this.fireStorage.upload(filePath, this.file);    
  
        this.progressValue = this.data.percentageChanges();
@@ -102,7 +102,7 @@ progressValue!: Observable<number>;
    
     }
        this.file = event.target.files[0];
-       this.file.name = this.SubmitData.Email;
+       this.file.name = this.SubmitData.User_Email;
      
     
   }
@@ -111,15 +111,14 @@ data:any;
   //==================================Post to Api to check if ID exists=============================
   checkEmail(){
 
-    if(this.SubmitData.Email.length >= 10){
-    this.http.post("http://localhost:4200/api/UserExists", this.SubmitData.Email).subscribe(  
+    if(this.SubmitData.User_Email.length >= 10){
+    this.http.post("http://localhost:4200/api/UserExists", this.SubmitData.User_Email).subscribe(  
       success => {
         this.submit1 = true; 
       },
 
       error =>{
         alert("Email number is already in use");
-        this.SubmitData.User_Email = null;
         this.submit1 = false;  
       }
     );
@@ -130,16 +129,15 @@ data:any;
 
 
   CheckEmail(){
-    this.http.post("http://localhost:4200/api/UserExists", this.SubmitData.Email).subscribe( 
+    this.http.post("http://localhost:4200/api/UserExists", this.SubmitData.User_Email).subscribe( 
       success => {
         this.submit2 = true; 
-        if (this.SubmitData.Email.length == 0){
+        if (this.SubmitData.User_Email.length == 0){
           this.submit2 = false;  
         }
       },
       error =>{
         alert("Email is already in use");
-        this.SubmitData.User_Email = null;
         console.log(error);
         this.submit2 = false; 
       }
@@ -187,7 +185,7 @@ downloadDocFile(data: { DocFile: any; }) {
     });  
 }  
 onSelectFile(file: FileList) {  
-    this.fileToUpload = file.item(0);  
+    this.fileToUpload = (file.item(0))!;  
     var reader = new FileReader();  
     reader.onload = (event: any) => {  
         this.imageUrl = event.target.result;  

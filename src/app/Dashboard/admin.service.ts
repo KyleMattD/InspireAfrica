@@ -51,13 +51,13 @@ export class AdminService{
        return this.http.post(this.baseURL + "Subject/Add/"+ localStorage.getItem("currentUser"),Subject,ops);
     }
 
-    deleteSubject(id:number):any{
+    deregisterSubject(id:number):any{
         const ops = {     
             headers: new HttpHeaders({
               'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
             })
           };
-          return this.http.delete(this.baseURL + "Subject/delete/" + id.toString(),ops);
+          return this.http.delete(this.baseURL + "Subject/deregister/" + id.toString(),ops);
     }
 
 }

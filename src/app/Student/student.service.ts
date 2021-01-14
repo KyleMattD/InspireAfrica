@@ -42,5 +42,9 @@ export class StudentService {
     deleteLearners(id: number) {
         return this.http.delete(this.url + "/" + id);
     } 
+
+    deregisterSubject(id: number) {
+        return this.http.delete(this.url + "Subject/Deregister" + id);
+    } 
 } 
 

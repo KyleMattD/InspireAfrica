@@ -1,0 +1,127 @@
+<h1 style="text-align: center;">Subjects</h1>
+<button mat-raised-button color="primary" (click) = "create()" class="buttons"><mat-icon>add</mat-icon>Create Report</button>&nbsp;&nbsp;
+<button mat-raised-button color="primary" (click) = "download()" class="buttons"><mat-icon> sentiment_satisfied_alt</mat-icon> Download Report</button>
+
+<div fxLayout="column">
+    <div class="flex-p" *ngIf = "showtable"> 
+        <div fxLayout="column" class="mat-elevation-z8" >           
+            <mat-form-field class="p-1">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type to filter all columns">
+            </mat-form-field> 
+        </div>
+        <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">       
+            <ng-container matColumnDef="Subject ID">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Person_ID}} </mat-cell>
+            </ng-container>         
+            <ng-container matColumnDef="Subject Name">
+                <mat-header-cell *matHeaderCellDef> Learner Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Person_Name}} </mat-cell>
+            </ng-container>    
+            <ng-container matColumnDef="Centre Name">
+                <mat-header-cell *matHeaderCellDef> Learner Surname </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Person_Surname}} </mat-cell>
+            </ng-container>        
+            <ng-container matColumnDef="Learner Mark">
+                <mat-header-cell *matHeaderCellDef> Marks </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Person_Grade}} </mat-cell>
+            </ng-container>          
+            <ng-container matColumnDef="Learner Email">
+                <mat-header-cell *matHeaderCellDef> Marks </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Person_Email}} </mat-cell>
+            </ng-container>       
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>  
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10]"></mat-paginator>      
+    </div>
+</div>
+<br>
+
+<div fxLayout="column">
+    <div class="flex-p" *ngIf = "showtable2"> 
+        <div fxLayout="column" class="mat-elevation-z8" >           
+            <mat-form-field class="p-1">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type to filter all columns">
+            </mat-form-field> 
+        </div>
+        <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">       
+            <ng-container matColumnDef="Centre ID">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Course_ID}} </mat-cell>
+            </ng-container>         
+            <ng-container matColumnDef="Centre Name">
+                <mat-header-cell *matHeaderCellDef> Course Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Course_Name}} </mat-cell>
+            </ng-container>    
+            <ng-container matColumnDef="Course Capacity">
+                <mat-header-cell *matHeaderCellDef> Centre Capactiy </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Course_Capacity}} </mat-cell>
+            </ng-container>            
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>  
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10]"></mat-paginator>      
+    </div>
+</div>
+<br>
+
+<div fxLayout="column">
+    <div class="flex-p" *ngIf = "showtable1"> 
+        <div fxLayout="column" class="mat-elevation-z8" >           
+            <mat-form-field class="p-1">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type to filter all columns">
+            </mat-form-field> 
+        </div>
+        <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">       
+            <ng-container matColumnDef="Subject ID">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Subject_ID}} </mat-cell>
+            </ng-container>         
+            <ng-container matColumnDef="Subject Name">
+                <mat-header-cell *matHeaderCellDef> Subject Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Subject_Name}} </mat-cell>
+            </ng-container>  
+            <ng-container matColumnDef="Learner Mark">
+                <mat-header-cell *matHeaderCellDef> Marks </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Person_ID}} </mat-cell>
+            </ng-container> 
+            <ng-container matColumnDef="Learner Mark">
+                <mat-header-cell *matHeaderCellDef> Marks </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Person_Grade}} </mat-cell>
+            </ng-container>             
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>  
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10]"></mat-paginator>      
+    </div>
+</div>
+<br>
+
+<div fxLayout="column">
+    <div class="flex-p" *ngIf = "showtable2"> 
+        <div fxLayout="column" class="mat-elevation-z8" >           
+            <mat-form-field class="p-1">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type to filter all columns">
+            </mat-form-field> 
+        </div>
+        <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">       
+            <ng-container matColumnDef="Centre ID">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Centre_ID}} </mat-cell>
+            </ng-container>         
+            <ng-container matColumnDef="Centre Name">
+                <mat-header-cell *matHeaderCellDef> Subject Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Centre_Name}} </mat-cell>
+            </ng-container>    
+            <ng-container matColumnDef="Centre Capacity">
+                <mat-header-cell *matHeaderCellDef> Centre Capactiy </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Centre_Capacity}} </mat-cell>
+            </ng-container>            
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>  
+        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10]"></mat-paginator>      
+    </div>
+</div>
+<br>
